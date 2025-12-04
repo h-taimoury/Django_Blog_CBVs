@@ -83,6 +83,7 @@ class PostListSerializer(serializers.ModelSerializer):
             "author",
             "title",
             "excerpt",
+            "image",
             "url",
             "updated_at",
         )
@@ -152,7 +153,14 @@ class PostWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("title", "content", "excerpt", "is_published", "url")
+        fields = (
+            "title",
+            "content",
+            "excerpt",
+            "image",
+            "is_published",
+            "url",
+        )
         # We explicitly exclude 'author' here.
         # It is set automatically in the view (request.user).
         read_only_fields = ["url"]

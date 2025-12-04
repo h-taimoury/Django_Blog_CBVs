@@ -24,6 +24,12 @@ class Post(models.Model):
         max_length=300,
         blank=True,
     )
+    image = models.ImageField(
+        upload_to="post_images/",  # Files go into a 'post_images' subfolder inside MEDIA_ROOT
+        blank=True,
+        null=True,
+    )
+
     # Management fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

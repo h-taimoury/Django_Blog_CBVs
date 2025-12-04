@@ -20,11 +20,13 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("The Email must be set")
 
-        email = self.normalize_email(email)
+        email = self.normalize_email(
+            email
+        )  # The normalize_email method is a quite simple method provided by BaseUserManager which normalizes the email address by lowercasing the domain part of it.
         user = self.model(email=email, **extra_fields)
         user.set_password(
             password
-        )  # Receives the raw password, hashes it and adds the hashed password in the password field of User object.
+        )  # Receives the raw password, hashes it and adds the hashed password in the password field of User object. This method is a quite simple method provided by AbstractBaseUser class.
         user.save()
         return user
 

@@ -69,7 +69,9 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         """Overrides create to return the custom minimal success response."""
-        response = super().create(request, *args, **kwargs)
+        response = super().create(
+            request, *args, **kwargs
+        )  # This line doesn't respond to http request, because it's not returning any response from the create method we're in, just stores a response object. When we return a response object from the current create method (which is this one and has been over-ridden the default create method), there we are responding to http request.
 
         # Logic from the old FBV
         post_url = f"/posts/{self.created_instance.slug}-{self.created_instance.id}/"
@@ -85,8 +87,6 @@ class PostViewSet(viewsets.ModelViewSet):
         # Logic from the old FBV
         response.data = {"message": "Post updated successfully."}
         return response
-
-    partial_update = update  # Use the same method for PATCH
 
 
 # ======================================================================

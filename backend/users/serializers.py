@@ -14,8 +14,9 @@ class UserSerializer(serializers.ModelSerializer):
     # # Define password explicitly as write-only for security and input control
     password = serializers.CharField(
         write_only=True,
-        required=True,
-        style={"input_type": "password"},
+        style={
+            "input_type": "password"
+        },  # This a piece of metadata specifically designed to instruct the Django Rest Framework Browsable API (and any other client that uses DRF's HTML form rendering logic) how to render the input field.
     )
 
     class Meta:
@@ -33,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
         # Add read_only_fields for fields that shouldn't be modifiable via standard input
         read_only_fields = ["id", "full_name", "created_at"]
-        # extra_kwargs = {"password": {"write_only": True, "required": True}}
+        # extra_kwargs = {"password": {"write_only": True}}
 
     def get_full_name(self, obj):
         # Uses the method defined in your User model

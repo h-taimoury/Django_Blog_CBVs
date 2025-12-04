@@ -4,7 +4,7 @@ from . import views
 
 # 1. Create Router for ViewSet
 router = DefaultRouter()
-router.register(r"posts", views.PostViewSet, basename="post")
+router.register(r"", views.PostViewSet, basename="post")
 
 urlpatterns = [
     # ----------------------------------------------------------------------

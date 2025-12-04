@@ -40,18 +40,31 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_spectacular",
     "users",
     "posts",
 ]
 
+# OPTIONAL: Add configuration settings for spectacular
+# This is not required but can be helpful for branding/metadata
+SPECTACULAR_SETTINGS = {
+    "TITLE": "My Blog CBVs API",
+    "DESCRIPTION": "Detailed documentation for the Blog REST API",
+    "VERSION": "1.0.0",
+    # This setting tells Spectacular where to find the API schema generation logic
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
 # Specifying my custom user model
 AUTH_USER_MODEL = "users.User"
 
-# This is for Django project to be configured to use 'Simple JWT' auth library.
 REST_FRAMEWORK = {
+    # This is for Django project to be configured to use 'Simple JWT' auth library.
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    # The following line is for drf_spectacular library to work
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 
@@ -60,6 +73,20 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=30),  # Changed from minutes=5
     # The refresh token lifetime will remain at the default (1 day)
 }
+
+# Settings to store post images locally in development phase 👇
+
+# Absolute path to the directory where user-uploaded media files will be stored.
+# This creates a 'media/' folder at the root of your project.
+MEDIA_ROOT = BASE_DIR / "media"
+
+# The URL prefix for media files (e.g., accessed at http://127.0.0.1:8000/media/...)
+MEDIA_URL = "/media/"
+
+# Note: In production (AWS S3), you would change or override these settings.
+
+
+# Settings to store post images locally in development phase 👆
 
 
 MIDDLEWARE = [
